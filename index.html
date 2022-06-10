@@ -39,8 +39,11 @@
         console.log(randomWord, "====", typingWord, "====", typingWord === randomWord);
         if (randomWord === typingWord) {
           showWord();
+          resetInputWord();
         } else {
-          gsap.from("#inputBox", { x: 100, duration: 0.5, ease: "elastic(1,0.3)" });
+          gsap.from("#inputBox", { x: 100, duration: 0.5, ease: "elastic(1,0.3)", onComplete: init });
+          resetInputWord();
+          inputWord.removeEventListener("keyup", keyupFunc);
         }
       }
     };
@@ -48,11 +51,17 @@
       "JavaScript is a lightweight interpreted or just-in-time compiled programming language with first-class functions While it is most well-known as the scripting language for Web pages, many non-browser environments also use it such as Node.js Apache CouchDB and Adobe Acrobat JavaScript is a prototype-based multi-paradigm single-threaded dynamic language supporting object-oriented imperative and declarative styles Read more about JavaScript";
     // 어떠한 값이 두번이상 반복될때는 변수에 담는걸 고랴해보는게 좋다.
     // 어떠한 코드가 두번이상 반복될때는 함수로 정의 하는게 좋다.
-    const moreThan5 = function () {};
     const words = str.split(" ").filter(function (item, index) {
       return item.length > 5;
     });
+    const init = function () {
+      inputWord.addEventListener("keyup", keyupFunc);
+    };
+    const resetInputWord = function () {
+      inputWord.value = "";
+      inputWord.focus();
+    };
     showWord();
-    inputWord.addEventListener("keyup", keyupFunc);
+    init();
   </script>
 </html>

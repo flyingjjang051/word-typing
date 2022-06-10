@@ -24,11 +24,14 @@
     <div id="inputBox">
       <input type="text" placeholder="단어를 입력해주세요." id="inputWord" />
     </div>
+    <div id="info">2/30</div>
   </body>
   <script>
     const selectedWord = document.querySelector("#selectedWord");
     const inputWord = document.querySelector("#inputWord");
+    const info = document.querySelector("#info");
     let randomWord = "";
+    let count = 1;
     const showWord = function () {
       randomWord = words.splice(Math.floor(Math.random() * words.length), 1).pop();
       selectedWord.innerHTML = `<span>${randomWord}</span>`;
@@ -40,6 +43,8 @@
         if (randomWord === typingWord) {
           showWord();
           resetInputWord();
+          count++;
+          info.textContent = `${count}/${words.length}`;
         } else {
           gsap.from("#inputBox", { x: 100, duration: 0.5, ease: "elastic(1,0.3)", onComplete: init });
           resetInputWord();
@@ -47,13 +52,28 @@
         }
       }
     };
-    const str =
-      "JavaScript is a lightweight interpreted or just-in-time compiled programming language with first-class functions While it is most well-known as the scripting language for Web pages, many non-browser environments also use it such as Node.js Apache CouchDB and Adobe Acrobat JavaScript is a prototype-based multi-paradigm single-threaded dynamic language supporting object-oriented imperative and declarative styles Read more about JavaScript";
+
+    let msg = "hello hello world world world world";
+    msg = msg.replaceAll(",", "");
+    const msrArray = msg.split(" "); //["hello","world"]
+    const set = new Set(msrArray);
+    const newArray = [...set];
+    console.log("🚀 ~ file: index.html ~ line 62 ~ newArray", newArray);
+
+    let str =
+      "JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative (e.g. functional programming) styles. Read more about JavaScript.";
+    //.,로 끝나는것은 배열에서 제외하던지 지우고 쓰던지...
     // 어떠한 값이 두번이상 반복될때는 변수에 담는걸 고랴해보는게 좋다.
     // 어떠한 코드가 두번이상 반복될때는 함수로 정의 하는게 좋다.
-    const words = str.split(" ").filter(function (item, index) {
+    //str = str.replaceAll(/\./g, "");
+    //str = str.replaceAll(/,/g, "");
+    str = str.replaceAll(",", "");
+    str = str.replaceAll(".", "");
+    const arr = new Set(str.split(" "));
+    const words = [...arr].filter(function (item, index) {
       return item.length > 5;
     });
+    console.log("🚀 ~ file: index.html ~ line 63 ~ words ~ words", words);
     const init = function () {
       inputWord.addEventListener("keyup", keyupFunc);
     };
@@ -61,6 +81,7 @@
       inputWord.value = "";
       inputWord.focus();
     };
+    info.textContent = `${count}/${words.length}`;
     showWord();
     init();
   </script>

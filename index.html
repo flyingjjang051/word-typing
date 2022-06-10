@@ -52,23 +52,25 @@
         }
       }
     };
-
+    /*
     let msg = "hello hello world world world world";
     msg = msg.replaceAll(",", "");
     const msrArray = msg.split(" "); //["hello","world"]
     const set = new Set(msrArray);
     const newArray = [...set];
     console.log("🚀 ~ file: index.html ~ line 62 ~ newArray", newArray);
+    */
 
     let str =
       "JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative (e.g. functional programming) styles. Read more about JavaScript.";
     //.,로 끝나는것은 배열에서 제외하던지 지우고 쓰던지...
     // 어떠한 값이 두번이상 반복될때는 변수에 담는걸 고랴해보는게 좋다.
     // 어떠한 코드가 두번이상 반복될때는 함수로 정의 하는게 좋다.
-    //str = str.replaceAll(/\./g, "");
-    //str = str.replaceAll(/,/g, "");
-    str = str.replaceAll(",", "");
-    str = str.replaceAll(".", "");
+    // str = str.replaceAll(",", "");
+    // str = str.replaceAll(".", "");
+    // str = str.replaceAll("(", "");
+    // str = str.replaceAll(")", "");
+    str = str.replaceAll(/[,.()!~%$@*#]/g, "");
     const arr = new Set(str.split(" "));
     const words = [...arr].filter(function (item, index) {
       return item.length > 5;

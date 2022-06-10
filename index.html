@@ -45,6 +45,10 @@
           resetInputWord();
           count++;
           info.textContent = `${count}/${words.length}`;
+          if (count >= words.length) {
+            const endTime = new Date();
+            //console.log(endTime - startTime);
+          }
         } else {
           gsap.from("#inputBox", { x: 100, duration: 0.5, ease: "elastic(1,0.3)", onComplete: init });
           resetInputWord();
@@ -61,8 +65,7 @@
     console.log("🚀 ~ file: index.html ~ line 62 ~ newArray", newArray);
     */
 
-    let str =
-      "JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, multi-paradigm, single-threaded, dynamic language, supporting object-oriented, imperative, and declarative (e.g. functional programming) styles. Read more about JavaScript.";
+    let str = "JavaScript (JS) is a lightweight";
     //.,로 끝나는것은 배열에서 제외하던지 지우고 쓰던지...
     // 어떠한 값이 두번이상 반복될때는 변수에 담는걸 고랴해보는게 좋다.
     // 어떠한 코드가 두번이상 반복될때는 함수로 정의 하는게 좋다.
@@ -86,5 +89,6 @@
     info.textContent = `${count}/${words.length}`;
     showWord();
     init();
+    const startTime = new Date();
   </script>
 </html>

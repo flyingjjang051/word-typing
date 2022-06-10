@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WORD-TYPING</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <script src="js/greensock/gsap.min.js"></script>
+  </head>
+  <body>
+    <header id="header">
+      <h1>WORD<strong>TYPING</strong></h1>
+    </header>
+    <div id="selectedWord">
+      <!-- <span>javascript</span> -->
+    </div>
+    <div id="inputBox">
+      <input type="text" placeholder="단어를 입력해주세요." id="inputWord" />
+    </div>
+  </body>
+  <script>
+    const selectedWord = document.querySelector("#selectedWord");
+    const inputWord = document.querySelector("#inputWord");
+    let randomWord = "";
+    const showWord = function () {
+      randomWord = words.splice(Math.floor(Math.random() * words.length), 1).pop();
+      selectedWord.innerHTML = `<span>${randomWord}</span>`;
+    };
+    const keyupFunc = function (e) {
+      if (e.keyCode === 13) {
+        const typingWord = inputWord.value;
+        console.log(randomWord, "====", typingWord, "====", typingWord === randomWord);
+        if (randomWord === typingWord) {
+          showWord();
+        } else {
+          gsap.from("#inputBox", { x: 100, duration: 0.5, ease: "elastic(1,0.3)" });
+        }
+      }
+    };
+    const str =
+      "JavaScript is a lightweight interpreted or just-in-time compiled programming language with first-class functions While it is most well-known as the scripting language for Web pages, many non-browser environments also use it such as Node.js Apache CouchDB and Adobe Acrobat JavaScript is a prototype-based multi-paradigm single-threaded dynamic language supporting object-oriented imperative and declarative styles Read more about JavaScript";
+    // 어떠한 값이 두번이상 반복될때는 변수에 담는걸 고랴해보는게 좋다.
+    // 어떠한 코드가 두번이상 반복될때는 함수로 정의 하는게 좋다.
+    const moreThan5 = function () {};
+    const words = str.split(" ").filter(function (item, index) {
+      return item.length > 5;
+    });
+    showWord();
+    inputWord.addEventListener("keyup", keyupFunc);
+  </script>
+</html>

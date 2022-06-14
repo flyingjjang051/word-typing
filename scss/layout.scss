@@ -82,3 +82,14 @@ a {
   font-size: 32px;
   color: #fff;
 }
+
+#time {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-size: 5vw;
+  font-weight: 100;
+  margin-top: 100px;
+  text-transform: uppercase;
+  @include longShadow(#111, 500);
+}

@@ -25,29 +25,38 @@
       <input type="text" placeholder="단어를 입력해주세요." id="inputWord" />
     </div>
     <div id="info">2/30</div>
+    <div id="time"></div>
   </body>
   <script>
     const selectedWord = document.querySelector("#selectedWord");
     const inputWord = document.querySelector("#inputWord");
     const info = document.querySelector("#info");
+    const time = document.querySelector("#time");
     let randomWord = "";
-    let count = 1;
+    let count = 0;
     const showWord = function () {
       randomWord = words.splice(Math.floor(Math.random() * words.length), 1).pop();
       selectedWord.innerHTML = `<span>${randomWord}</span>`;
     };
+    const startTime = new Date();
     const keyupFunc = function (e) {
       if (e.keyCode === 13) {
         const typingWord = inputWord.value;
-        console.log(randomWord, "====", typingWord, "====", typingWord === randomWord);
         if (randomWord === typingWord) {
-          showWord();
-          resetInputWord();
           count++;
-          info.textContent = `${count}/${words.length}`;
-          if (count >= words.length) {
+          info.textContent = `${count}/${total}`;
+          if (count >= total) {
             const endTime = new Date();
-            //console.log(endTime - startTime);
+            console.log(endTime - startTime);
+            const elapsedTime = endTime - startTime;
+            const tempSec = Math.floor(elapsedTime / 1000) % 60;
+            const tempMin = Math.floor(elapsedTime / 1000 / 60) % 60;
+            const sec = tempSec < 10 ? "0" + tempSec : tempSec;
+            const min = tempMin < 10 ? "0" + tempMin : tempMin;
+            time.textContent = `${min}:${sec}`;
+          } else {
+            showWord();
+            resetInputWord();
           }
         } else {
           gsap.from("#inputBox", { x: 100, duration: 0.5, ease: "elastic(1,0.3)", onComplete: init });
@@ -78,7 +87,7 @@
     const words = [...arr].filter(function (item, index) {
       return item.length > 5;
     });
-    console.log("🚀 ~ file: index.html ~ line 63 ~ words ~ words", words);
+    const total = words.length;
     const init = function () {
       inputWord.addEventListener("keyup", keyupFunc);
     };
@@ -86,9 +95,8 @@
       inputWord.value = "";
       inputWord.focus();
     };
-    info.textContent = `${count}/${words.length}`;
+    info.textContent = `${count}/${total}`;
     showWord();
     init();
-    const startTime = new Date();
   </script>
 </html>
